@@ -1,5 +1,5 @@
 # 汉化说明，fork自最新(20260701)MicroBin的Master分支，已针对templates部分汉化并优化Dockerfile编译过程，使用musl静态编译，已解决编译后的依赖问题
-
+https://github.com/Rrrjs/microbin_cn/blob/master/Screenshots/preview.png
 
 ![Screenshot](.github/index.png)
 
