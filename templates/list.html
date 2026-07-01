@@ -4,11 +4,11 @@
 {% if pastas.is_empty() %}
 <br>
 <p>
-    No uploads yet. 😔 Create one <a href="{{ args.public_path_as_str() }}/">here</a>.
+    还没有上传内容。😔 点击<a href="{{ args.public_path_as_str() }}/">这里</a>创建一个。
 </p>
 <br>
 {%- else %}
-<h3>Uploads</h3>
+<h3>上传列表</h3>
 <div style="width: 100%; overflow-x: auto;">
     {% if args.pure_html %}
     <table border="1" style="width: 100%; min-width: 720px; white-space: nowrap;">
@@ -17,18 +17,18 @@
             {% endif %}
             <thead>
                 <th style="width: 25%">
-                    Key
+                    密钥
                 </th>
                 <th style="width: 10%">
                 </th>
                 <th style="width: 15%">
-                    Created
+                    创建时间
                 </th>
                 <th style="width: 15%">
-                    Expiration
+                    过期时间
                 </th>
                 <th style="width: 15%">
-                    Contents
+                    内容
                 </th>
 
                 <th style="width: 10%">
@@ -48,10 +48,10 @@
                         {% if args.public_path_as_str() != "" %}
                         {% if args.short_path_as_str() == "" %}
                         <a style="margin-right:1rem; cursor: pointer;" class="copy-button" null
-                            data-url="{{ args.public_path_as_str()}}/upload/{{pasta.id_as_animals()}}">Copy</a>
+                            data-url="{{ args.public_path_as_str()}}/upload/{{pasta.id_as_animals()}}">复制</a>
                         {% else %}
                         <a style="margin-right:1rem; cursor: pointer;" class="copy-button" data-url="{{ args.short_path_as_str()
-                        }}/p/{{pasta.id_as_animals()}}">Copy</a>
+                        }}/p/{{pasta.id_as_animals()}}">复制</a>
                         {% endif %}
                         {%- endif %}
                     </td>
@@ -64,22 +64,22 @@
                     <td>
                         {% if pasta.content != "" %}
                         <a style="margin-right:1rem"
-                            href="{{ args.public_path_as_str()}}/raw/{{pasta.id_as_animals()}}">Text</a>
+                            href="{{ args.public_path_as_str()}}/raw/{{pasta.id_as_animals()}}">文本</a>
                         {%- endif %}
                         {% if pasta.attachments.is_some() %}
                         <a style="margin-right:1rem"
                             href="{{ args.public_path_as_str() }}/upload/{{pasta.id_as_animals()}}">
-                            {{ 1 + pasta.attachments.as_ref().unwrap().len() }} Files
+                            {{ 1 + pasta.attachments.as_ref().unwrap().len() }} 个文件
                         </a>
                         {% else if pasta.file.is_some() %}
                         <a style="margin-right:1rem"
                             href="{{ args.public_path_as_str() }}/file/{{pasta.id_as_animals()}}">
                             {% if pasta.file.as_ref().unwrap().is_image() %}
-                            Image
+                            图片
                             {%- else if pasta.file.as_ref().unwrap().is_video() %}
-                            Video
+                            视频
                             {%- else %}
-                            File
+                            文件
                             {%- endif %}
                         </a>
                         {%- endif %}
@@ -88,12 +88,12 @@
                     <td>
                         {% if pasta.editable %}
                         <a style="margin-right:1rem"
-                            href="{{ args.public_path_as_str() }}/edit/{{pasta.id_as_animals()}}">Edit</a>
+                            href="{{ args.public_path_as_str() }}/edit/{{pasta.id_as_animals()}}">编辑</a>
                         {%- endif %}
                     </td>
                     <td>
                         {% if pasta.editable || pasta.readonly || pasta.encrypt_server %}
-                        <a href="{{ args.public_path_as_str() }}/remove/{{pasta.id_as_animals()}}">Remove</a>
+                        <a href="{{ args.public_path_as_str() }}/remove/{{pasta.id_as_animals()}}">删除</a>
                         {%- endif %}
                     </td>
                 </tr>
@@ -102,7 +102,7 @@
             </tbody>
         </table>
         <br>
-        <h3>URL Redirects</h3>
+        <h3>URL 重定向</h3>
         {% if args.pure_html %}
         <table border="1" style="width: 100%; min-width: 720px; ">
             {% else %}
@@ -110,15 +110,15 @@
                 {% endif %}
                 <thead>
                     <th style=" width: 25%">
-                        Key
+                        密钥
                     </th>
                     <th style="width: 10%">
                     </th>
                     <th style="width: 15%">
-                        Created
+                        创建时间
                     </th>
                     <th style="width: 15%">
-                        Expiration
+                        过期时间
                     </th>
                     <th style="width: 15%">
                     </th>
@@ -137,10 +137,10 @@
                     <td>
                         {% if args.short_path_as_str() == "" %}
                         <a style="margin-right:1rem; cursor: pointer;" class="copy-button"
-                            data-url="{{ args.public_path_as_str()                    }}/url/{{pasta.id_as_animals()}}">Copy</a>
+                            data-url="{{ args.public_path_as_str()                    }}/url/{{pasta.id_as_animals()}}">复制</a>
                         {% else %}
                         <a style="margin-right:1rem; cursor: pointer;" class="copy-button" data-url="{{ args.short_path_as_str()
-                        }}/u/{{pasta.id_as_animals()}}">Copy</a>
+                        }}/u/{{pasta.id_as_animals()}}">复制</a>
                         {% endif %}
                     </td>
                     <td>
@@ -151,17 +151,17 @@
                     </td>
                     <td>
                         <a style="margin-right:1rem"
-                            href="{{ args.public_path_as_str() }}/url/{{pasta.id_as_animals()}}">Redirect</a>
+                            href="{{ args.public_path_as_str() }}/url/{{pasta.id_as_animals()}}">跳转</a>
                     </td>
                     <td>
                         {% if pasta.editable %}
                         <a style="margin-right:1rem"
-                            href="{{ args.public_path_as_str() }}/edit/{{pasta.id_as_animals()}}">Edit</a>
+                            href="{{ args.public_path_as_str() }}/edit/{{pasta.id_as_animals()}}">编辑</a>
                         {%- endif %}
                     </td>
                     <td>
                         {% if pasta.editable || pasta.readonly || pasta.encrypt_server %}
-                        <a href="{{ args.public_path_as_str() }}/remove/{{pasta.id_as_animals()}}">Remove</a>
+                        <a href="{{ args.public_path_as_str() }}/remove/{{pasta.id_as_animals()}}">删除</a>
                         {%- endif %}
                     </td>
                 </tr>
@@ -180,9 +180,9 @@
         copyURLBtns.item(i).addEventListener("click", event => {
             event.srcElement
             navigator.clipboard.writeText(event.srcElement.getAttribute("data-url"))
-            event.srcElement.innerHTML = "Copied"
+            event.srcElement.innerHTML = "已复制"
             setTimeout(() => {
-                event.srcElement.innerHTML = "Copy"
+                event.srcElement.innerHTML = "复制"
             }, 1000)
         })
     }

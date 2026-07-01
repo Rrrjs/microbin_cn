@@ -5,19 +5,18 @@
 <form id="auth-form" method="POST" action="{{ args.public_path_as_str() }}/{{path}}/{{id}}" enctype="multipart/form-data">
   {% if status == "success" %}
   <b>
-    Success!
+    成功！
   </b> <br>
   {% endif %}
-  <label for="password"> Please enter the
-    password to access or modify this upload. <sup>
+  <label for="password"> 请输入密码以访问或修改此上传内容。 <sup>
       <a href="{{ args.public_path_as_str() }}/guide#encryption">?</a></sup></label>
-  <input id="password-field" required placeholder="Password" type="password" autocomplete="off">
+  <input id="password-field" required placeholder="密码" type="password" autocomplete="off">
   <input id="password-hidden" name="password" type="hidden">
-  <button>Okay</button>
+  <button>确认</button>
 
   {% if status == "incorrect" %}
   <b>
-    Incorrect password.
+    密码错误。
   </b>
   {% endif %}
 </form>
@@ -63,18 +62,17 @@
 <form id="auth-form" method="POST" action="{{ args.public_path_as_str() }}/{{path}}/{{id}}" enctype="multipart/form-data">
   {% if status == "success" %}
   <b>
-    Success!
+    成功！
   </b> <br>
   {% endif %}
-  <label for="password" style="margin-bottom: 0.5rem;"> Please enter the
-    password to access or modify this upload. <sup>
+  <label for="password" style="margin-bottom: 0.5rem;"> 请输入密码以访问或修改此上传内容。 <sup>
       <a href="{{ args.public_path_as_str() }}/guide#encryption">?</a></sup></label>
-  <input id="password-field" placeholder="Password" name="password" type="password" autocomplete="off" />
-  <button>Okay</button>
+  <input id="password-field" placeholder="密码" name="password" type="password" autocomplete="off" />
+  <button>确认</button>
 
   {% if status == "incorrect" %}
   <b>
-    Incorrect password.
+    密码错误。
   </b>
   {% endif %}
 </form>
