@@ -4,37 +4,31 @@ WORKDIR /app
 
 RUN DEBIAN_FRONTEND=noninteractive \
     apt-get update && \
-    apt-get -y install --no-install-recommends ca-certificates tzdata && \
+    apt-get -y install --no-install-recommends ca-certificates tzdata musl-tools && \
     rm -rf /var/lib/apt/lists/*
+
+RUN rustup target add x86_64-unknown-linux-musl
 
 COPY . .
 
-RUN CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --release && \
+ENV RUSTFLAGS="-C target-feature=+crt-static"
+RUN CARGO_NET_GIT_FETCH_WITH_CLI=true cargo build --release --target x86_64-unknown-linux-musl && \
     mkdir -p /app/microbin_data
 
-# https://github.com/GoogleContainerTools/distroless
-# nonroot user (uid:gid 65532:65532) is pre-defined in distroless images
-FROM gcr.io/distroless/cc-debian12
+FROM alpine:latest
 
 WORKDIR /app
 
-# copy time zone info from build stage
-COPY --from=build /usr/share/zoneinfo /usr/share/zoneinfo
+RUN apk add --no-cache ca-certificates
 
-# copy CA certificates from build stage
-COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+COPY --from=build /app/target/x86_64-unknown-linux-musl/release/microbin /usr/bin/microbin
 
-# copy built executable
-COPY --from=build /app/target/release/microbin /usr/bin/microbin
+RUN adduser -D -h /app microbin && \
+    mkdir -p /app/microbin_data && \
+    chown microbin:microbin /app/microbin_data
 
-# copy data directory skeleton with nonroot ownership
-COPY --from=build --chown=65532:65532 /app/microbin_data /app/microbin_data
-
-USER 65532:65532
+USER microbin:microbin
 
 VOLUME ["/app/microbin_data"]
-
-# Expose webport used for the webserver to the docker runtime
 EXPOSE 8080
-
 ENTRYPOINT ["/usr/bin/microbin"]
